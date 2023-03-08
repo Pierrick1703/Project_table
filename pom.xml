@@ -76,7 +76,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.example.quality_software_rendu/com.example.quality_software_rendu.StartApplication
+                                com.example.quality_software_rendu/com.example.Project_Table.StartApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

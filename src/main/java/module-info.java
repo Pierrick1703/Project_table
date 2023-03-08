@@ -5,6 +5,6 @@ module com.example.quality_software_rendu {
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
 
-    opens com.example.quality_software_rendu to javafx.fxml;
-    exports com.example.quality_software_rendu;
+    opens com.example.Project_Table to javafx.fxml;
+    exports com.example.Project_Table;
 }
