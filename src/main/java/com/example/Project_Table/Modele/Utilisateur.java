@@ -1,5 +1,4 @@
 package com.example.Project_Table.Modele;
-import java.util.List;
 
 public class Utilisateur {
     private String Nom;
@@ -19,6 +18,7 @@ public class Utilisateur {
         this.AdresseMail = adresseMail;
         this.Privillege = "Utilisateur";
     }
+
     //endregion
     //region Getter and setter
     public String getNom(){
