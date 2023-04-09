@@ -1,16 +1,19 @@
 package com.example.Project_Table.Modele;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Colonne {
     private String Nom;
-    private List<String> Ligne;
+    private List<Ligne> Ligne;
     private String Type;
+
 
     //region Constructeur
     public Colonne(String nom){
         this.Nom = nom;
         this.Type = "String";
+        this.Ligne = new ArrayList<Ligne>();
     }
     public Colonne(String nom,String type){
         this.Nom = nom;
@@ -24,19 +27,23 @@ public class Colonne {
     public String getType(){
         return this.Type;
     }
-    public List<String> getLigne(){
+    public List<Ligne> getLigne(){
         return this.Ligne;
     }
+
     public void setNom(String nom){
         this.Nom = nom;
     }
     public void setType(String type){
         this.Type = type;
     }
-    public void setLigne(List<String> ligne){
+    public void setLigne(List<Ligne> ligne){
         this.Ligne = ligne;
     }
     //endregion
 
+    public int getLengthLigne(){
+        return this.Ligne.size();
+    }
 
 }
