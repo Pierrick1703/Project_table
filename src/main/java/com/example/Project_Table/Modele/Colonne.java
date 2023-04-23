@@ -1,5 +1,8 @@
 package com.example.Project_Table.Modele;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +21,15 @@ public class Colonne {
     public Colonne(String nom,String type){
         this.Nom = nom;
         this.Type = type;
+    }
+    public Colonne(JSONObject json){
+        this.Nom = json.getString("Nom");
+        this.Type = json.getString("Type");
+        JSONArray ligneJson = json.getJSONArray("Ligne");
+        this.Ligne = new ArrayList<Ligne>();
+        for(int i = 0;i < ligneJson.length();i++){
+            this.Ligne.add(new Ligne((ligneJson.getJSONObject(i))));
+        }
     }
     //endregion
     //region Getter and setter
@@ -46,4 +58,22 @@ public class Colonne {
         return this.Ligne.size();
     }
 
+    public JSONObject toJson(){
+        JSONObject json = new JSONObject();
+        json.put("Nom", this.Nom);
+        json.put("Type", this.Type);
+
+        JSONArray lignesJson = new JSONArray();
+        for (Ligne currentLigne : this.Ligne) {
+            lignesJson.put(currentLigne.toJson());
+        }
+        json.put("Ligne", lignesJson);
+
+        return json;
+    }
+    public Ligne getLigne(int indexLigne){
+        Ligne resultLigne = null;
+        resultLigne = this.Ligne.get(indexLigne);
+        return resultLigne;
+    }
 }

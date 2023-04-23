@@ -1,5 +1,8 @@
 package com.example.Project_Table.Modele;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class Ligne {
 
     private String Valeur;
@@ -12,6 +15,12 @@ public class Ligne {
         this.Valeur = valeur;
         this.Numero = numero;
         this.Forumle = formule;
+    }
+
+    public Ligne(JSONObject json){
+        this.Valeur = json.getString("Valeur");
+        this.Numero = json.getInt("Numero");
+        this.Forumle = json.getString("Formule");
     }
 
     public String getValeur() {
@@ -34,5 +43,13 @@ public class Ligne {
 
     public void setValeur(String valeur) {
         Valeur = valeur;
+    }
+
+    public JSONObject toJson(){
+        JSONObject json = new JSONObject();
+        json.put("Valeur", this.Valeur);
+        json.put("Numero", this.Numero);
+        json.put("Formule", this.Forumle);
+        return json;
     }
 }
