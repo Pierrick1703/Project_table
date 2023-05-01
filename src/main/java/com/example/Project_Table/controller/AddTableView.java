@@ -72,7 +72,8 @@ public class AddTableView implements Initializable {
                 uneColonne.setLigne(listLigne);
             }
         }
-
+        StartApplication.data.createObservableList();
+        StageAddTable.close();
     }
 
     @FXML

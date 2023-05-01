@@ -37,17 +37,17 @@ public class Excel implements Initializable {
     @FXML private TableView<ObservableMap<String, String>> idTable = new TableView<>();
     public static String nameClickTableView;
 
-    @FXML private ListView<String> idList = new ListView<String>();
+    @FXML private TextField formulaTextField;
+    @FXML public ListView<String> idList = new ListView<String>();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //region build listTable
-        ArrayList<String> arrayList = new ArrayList<>();
-        for(int j=0; j <StartApplication.data.getListTable().size();j++){
-            arrayList.add(StartApplication.data.getListTable().get(j).getNom());
-        }
-        arrayList.add("+ Nouvelle table");
-        ObservableList<String> observableList = FXCollections.observableArrayList(arrayList);
-        idList.setItems(observableList);
+        buildListView();
+        eventHandlerTableView();
+    }
+
+    public void buildListView(){
+        StartApplication.data.createObservableList();
+        idList.setItems(StartApplication.data.getItems());
         idList.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2 && event.getButton() == MouseButton.PRIMARY) {
                 String name = removeFirstLastChars(idList.getSelectionModel().getSelectedItems().toString());
@@ -60,6 +60,9 @@ public class Excel implements Initializable {
                         addTableController.initialize(stageAddTable);
                         Scene scene = new Scene(root, 520, 360);
                         stageAddTable.setTitle("Ajout d'une table");
+                        stageAddTable.setOnHidden(event2 -> {
+                            this.buildListView();
+                        });
                         stageAddTable.setScene(scene);
                         stageAddTable.show();
                     } catch (IOException e) {
@@ -70,9 +73,6 @@ public class Excel implements Initializable {
                 }
             }
         });
-
-        //endregion
-        eventHandlerTableView();
     }
 
     private void initializeTableView(String nameTable){

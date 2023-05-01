@@ -21,6 +21,15 @@ CREATE TABLE dataTable(
     AdminUserId TEXT
 );
 
+CREATE TABLE privillege(
+	IdPrivillege int auto_increment primary key,
+    NomTable TEXT,
+    adresseMailUser TEXT,
+    Viewer boolean,
+    Editer boolean,
+    Administre boolean
+);
+
 insert into dataTable(idTable,NomTable,ViewUserId,EditUserId,AdminUserId) values
 (1,"Personnel","","",""),
 (2,"Entreprise","","","");

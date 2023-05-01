@@ -3,10 +3,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="671.0" prefWidth="1009.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Project_Table.controller.Excel">
-   <children>
-      <ListView fx:id="idList" layoutX="14.0" layoutY="60.0" prefHeight="526.0" prefWidth="255.0" />
-      <TableView fx:id="idTable" layoutX="289.0" layoutY="60.0" prefHeight="526.0" prefWidth="635.0">
-      </TableView>
-   </children>
-</AnchorPane>
+<VBox xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Project_Table.controller.Excel">
+    <HBox spacing="10">
+        <Label>Formule :</Label>
+        <TextField fx:id="formulaTextField" prefHeight="25.0" prefWidth="409.0" />
+    </HBox>
+    <AnchorPane>
+       <children>
+             <ListView fx:id="idList" layoutX="14.0" layoutY="60.0" prefWidth="200" AnchorPane.bottomAnchor="10" AnchorPane.topAnchor="10" />
+             <TableView fx:id="idTable" layoutX="289.0" layoutY="60.0" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="230" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10" />
+       </children>
+    </AnchorPane>
+</VBox>
