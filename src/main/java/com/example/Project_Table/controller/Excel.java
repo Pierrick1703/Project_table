@@ -1,5 +1,7 @@
 package com.example.Project_Table.controller;
 
+import com.example.Project_Table.Modele.Colonne;
+import com.example.Project_Table.Modele.Ligne;
 import com.example.Project_Table.Modele.Table;
 import com.example.Project_Table.StartApplication;
 import javafx.beans.property.SimpleStringProperty;
@@ -14,14 +16,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+import javax.swing.*;
+import java.awt.event.KeyAdapter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.example.Project_Table.StartApplication.data;
 
@@ -39,10 +46,13 @@ public class Excel implements Initializable {
 
     @FXML private TextField formulaTextField;
     @FXML public ListView<String> idList = new ListView<String>();
+
+    private String tableSelected;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         buildListView();
         eventHandlerTableView();
+        formulaTextField.setOnKeyTyped(event -> onKeyTyped(event));
     }
 
     public void buildListView(){
@@ -70,6 +80,7 @@ public class Excel implements Initializable {
                     }
                 }else{
                     initializeTableView(name);
+                    tableSelected = name;
                 }
             }
         });
@@ -103,12 +114,7 @@ public class Excel implements Initializable {
                         int rowIndex  = getIndex();
                         int indexColumn = getTableView().getColumns().indexOf(column);
                         super.commitEdit(newValue);
-                        System.out.println("Index de la Colonne: " + indexColumn);
-                        System.out.println("Index de la ligne: " + rowIndex);
-                        System.out.println("Ancienne valeur: " + oldValue);
-                        System.out.println("Nouvelle valeur: " + newValue);
                         tableSelected.changeValueLigne(rowIndex,indexColumn,oldValue,newValue);
-                        System.out.println(tableSelected.toJson());
                     }
                 };
                 cell.setConverter(new StringConverter<String>() {
@@ -200,7 +206,43 @@ public class Excel implements Initializable {
                 }
             }
         });
+        idTable.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1 && event.getButton() == MouseButton.PRIMARY) {
+                TableView.TableViewSelectionModel<ObservableMap<String, String>> selectionModel = idTable.getSelectionModel();
+                if (selectionModel.getSelectedItem() != null) {
+                    int selectedIndex = selectionModel.getSelectedIndex();
+                    TableColumn<ObservableMap<String, String>, String> selectedColumn = selectionModel.getSelectedCells().get(0).getTableColumn();
+                    if(selectedColumn.toString() != "Numero"){
+                        data.getTable(tableSelected).getFormulaCell(selectedColumn.toString(),selectedIndex);
+                    }
+                }
+            }
+        });
     }
+
+    private void onKeyTyped(KeyEvent event) {
+        if(event.getCharacter().equals("\r")){
+            String formule = formulaTextField.toString();
+            Pattern pattern = Pattern.compile("(-?\\d+)([-+]?\\d+)*");
+            Matcher matcher = pattern.matcher(formule);
+
+            if(matcher.matches()){
+                int total = 0;
+                Pattern numberPattern = Pattern.compile("(-?\\d+)");
+                Matcher numberMatcher = numberPattern.matcher(formule);
+
+                while(numberMatcher.find()){
+                    int number = Integer.parseInt(numberMatcher.group());
+                    total += number;
+                }
+                System.out.println(total);
+            } else {
+                throw new IllegalArgumentException("Erreur");
+            }
+        }
+    }
+
+
     public static String removeFirstLastChars(String input) {
         if (input == null || input.length() <= 2) {
             return "";
@@ -210,7 +252,9 @@ public class Excel implements Initializable {
 
     private ContextMenu createContextMenu() {
         editItem.setOnAction(event -> {
-            System.out.println("Valeur texte : " + nameClickTableView);
+            JFrame jFrame = new JFrame();
+            String getMessage = JOptionPane.showInputDialog(jFrame, "Nom de la colonne");
+            //idTable.getColumns()
         });
         deleteItem.setOnAction(event -> {
             idTable.getColumns().removeIf(col -> col.getText().equals(nameClickTableView));
@@ -218,13 +262,36 @@ public class Excel implements Initializable {
             System.out.println(nameClickTableView);
         });
         ajoutColonne.setOnAction(event -> {
-            TableColumn<ObservableMap<String, String>, String> column1 = new TableColumn<>("");
-            column1.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get("")));
-            column1.setContextMenu(createContextMenu());
-            idTable.getColumns().add(column1);
-            System.out.println("Valeur texte : " + nameClickTableView);
+            boolean validate = false;
+            while(!validate) {
+                JFrame jFrame = new JFrame();
+                String getMessage = JOptionPane.showInputDialog(jFrame, "Nom de la colonne");
+                if (StartApplication.data.getTable(tableSelected).verificationNomColonne(getMessage)) {
+                    generateColonne(getMessage);
+                    validate = true;
+                    initializeTableView(tableSelected);
+                } else {
+                    JOptionPane.showMessageDialog(jFrame, "Le nom de la colonne choisi n'est pas correct : "+getMessage);
+                }
+            }
         });
 
         return contextMenu;
     }
+
+    private Colonne generateColonne(String name){
+        Colonne colonne = null;
+        ArrayList<Ligne> tabLigne = new ArrayList<Ligne>();
+        Table currentTable = data.getTable(tableSelected);
+        int nombreLigne = currentTable.getLongestLigne();
+        for(int i = 0;i<nombreLigne;i++){
+            Ligne ligne = new Ligne("",i,"");
+            tabLigne.add(ligne);
+        }
+        colonne = new Colonne(name);
+        colonne.setLigne(tabLigne);
+        currentTable.addColonne(colonne);
+        return colonne;
+    }
+
 }

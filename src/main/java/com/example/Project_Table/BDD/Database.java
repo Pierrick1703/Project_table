@@ -60,11 +60,11 @@ public class Database {
 
             while (rs.next()) {
                 String jsonString = rs.getString("jsonTable");
+                System.out.println(jsonString);
                 JSONObject jsonObject = new JSONObject(jsonString);
                 String nom = rs.getString("nameTable");
                 Table table = new Table(jsonObject);
                 listTable.add(table);
-                System.out.println("ID: " + jsonString + ", Nom: " + nom);
             }
             rs.close();
             stmt.close();
@@ -108,7 +108,6 @@ public class Database {
             }
             stringRequest = stringRequest.substring(0,stringRequest.length() -1);
             String sql = "insert into dataTable (nameTable,jsonTable,ViewUserId,EditUserId,AdminUserId) values" + stringRequest+";";
-            System.out.println(sql);
             stmt.executeQuery(sql);
 
             stmt.close();

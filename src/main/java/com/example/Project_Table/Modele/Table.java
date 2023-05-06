@@ -76,6 +76,18 @@ public class Table {
         return result;
     }
 
+    public String getFormulaCell(String colonneName, int ligneNumber){
+        String result = "";
+        for(int i=0;i<Colonne.size();i++){
+            if(Colonne.get(i).getNom() == colonneName){
+                Colonne uneColonne = Colonne.get(i);
+                Ligne uneLigne = uneColonne.getLigne().get(ligneNumber);
+                result = uneLigne.getForumle();
+            }
+        }
+        return result;
+    }
+
     public JSONObject toJson(){
         JSONObject json = new JSONObject();
         json.put("Nom", this.Nom);
@@ -90,10 +102,10 @@ public class Table {
     }
 
     public boolean verificationNomColonne(String nomColonne){
-        boolean result = false;
+        boolean result = true;
         for(Colonne currentColonne : this.Colonne){
             if(Objects.equals(nomColonne,currentColonne.getNom())){
-                result = true;
+                result = false;
             }
         }
         return result;

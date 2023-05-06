@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Project_Table.controller.Excel">
+<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Project_Table.controller.Excel">
     <HBox spacing="10">
         <Label>Formule :</Label>
         <TextField fx:id="formulaTextField" prefHeight="25.0" prefWidth="409.0" />
