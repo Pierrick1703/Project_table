@@ -88,6 +88,17 @@ public class Table {
         return result;
     }
 
+    public void setFormulaCell(String colonneName, int ligneNumber,String formula){
+        String result = "";
+        for(int i=0;i<Colonne.size();i++){
+            if(Colonne.get(i).getNom() == colonneName){
+                Colonne uneColonne = Colonne.get(i);
+                Ligne uneLigne = uneColonne.getLigne().get(ligneNumber);
+                uneLigne.setForumle(formula);
+            }
+        }
+    }
+
     public JSONObject toJson(){
         JSONObject json = new JSONObject();
         json.put("Nom", this.Nom);
@@ -110,6 +121,17 @@ public class Table {
         }
         return result;
     }
+
+    public void setValueCell(String colonneName, int ligneNumber,String valeur){
+        for(int i=0;i<Colonne.size();i++){
+            if(Colonne.get(i).getNom() == colonneName){
+                Colonne uneColonne = Colonne.get(i);
+                Ligne uneLigne = uneColonne.getLigne().get(ligneNumber);
+                uneLigne.setValeur(valeur);
+            }
+        }
+    }
+
 
     public void verificationNombreLigne(){
         List<Ligne> listLigne = new ArrayList<Ligne>();

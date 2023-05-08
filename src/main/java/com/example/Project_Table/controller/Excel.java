@@ -4,6 +4,7 @@ import com.example.Project_Table.Modele.Colonne;
 import com.example.Project_Table.Modele.Ligne;
 import com.example.Project_Table.Modele.Table;
 import com.example.Project_Table.StartApplication;
+import com.example.Project_Table.Modele.Formula;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,9 +24,9 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import javax.swing.*;
-import java.awt.event.KeyAdapter;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -47,7 +48,12 @@ public class Excel implements Initializable {
     @FXML private TextField formulaTextField;
     @FXML public ListView<String> idList = new ListView<String>();
 
+    @FXML public Label labelError;
+
     private String tableSelected;
+    private String colonneSelected;
+    private int ligneSelected;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         buildListView();
@@ -213,7 +219,9 @@ public class Excel implements Initializable {
                     int selectedIndex = selectionModel.getSelectedIndex();
                     TableColumn<ObservableMap<String, String>, String> selectedColumn = selectionModel.getSelectedCells().get(0).getTableColumn();
                     if(selectedColumn.toString() != "Numero"){
-                        data.getTable(tableSelected).getFormulaCell(selectedColumn.toString(),selectedIndex);
+                        formulaTextField.setText(data.getTable(tableSelected).getFormulaCell(selectedColumn.toString(),selectedIndex));
+                        colonneSelected = selectedColumn.toString();
+                        ligneSelected = selectedIndex;
                     }
                 }
             }
@@ -222,22 +230,70 @@ public class Excel implements Initializable {
 
     private void onKeyTyped(KeyEvent event) {
         if(event.getCharacter().equals("\r")){
-            String formule = formulaTextField.toString();
-            Pattern pattern = Pattern.compile("(-?\\d+)([-+]?\\d+)*");
-            Matcher matcher = pattern.matcher(formule);
-
-            if(matcher.matches()){
-                int total = 0;
-                Pattern numberPattern = Pattern.compile("(-?\\d+)");
-                Matcher numberMatcher = numberPattern.matcher(formule);
-
-                while(numberMatcher.find()){
-                    int number = Integer.parseInt(numberMatcher.group());
-                    total += number;
+            String formulaText = formulaTextField.getText();
+            ArrayList<String> tabFormule = new ArrayList<>();
+            tabFormule.addAll(Arrays.asList("Today","Calcul","Concat"));
+            String wordFormule = "";
+            Table currentTable = data.getTable(tableSelected);
+            int i = 0;
+            while(i < tabFormule.size()){
+                if(formulaText.contains(tabFormule.get(i))){
+                    wordFormule = tabFormule.get(i);
                 }
-                System.out.println(total);
-            } else {
-                throw new IllegalArgumentException("Erreur");
+                i++;
+            }
+            switch (wordFormule){
+                case "Today" :
+                    LocalDate currentDate = LocalDate.now();
+                    currentTable.setValueCell(colonneSelected,ligneSelected,currentDate.toString());
+                    currentTable.setFormulaCell(colonneSelected,ligneSelected,formulaText);
+                    break;
+
+                case "Calcul" :
+
+                    break;
+                case "Concat" :
+                    boolean error = false;
+                    int j = 0;
+                    String formulaConcat = formulaText.substring(0,7);
+                    String[] tabFormulaConcat = formulaConcat.split(",");
+                    String resultConcat = "";
+                    int numberSeparator = (int) (Math.floor(Math.log10(Math.abs(currentTable.getLongestLigne()))) + 1);
+                    char charRecherche = '"';
+                    StringBuilder stringBuilder = new StringBuilder();
+                    stringBuilder.append(charRecherche);
+                    CharSequence charSequence = stringBuilder;//Pour convertir le char de recherche en une chaine de séquence pour la fonciton contains
+                    while(tabFormulaConcat.length < j){
+                        if(tabFormulaConcat[j].contains(charSequence)){
+                            resultConcat += removeFirstLastChars(tabFormulaConcat[j]);
+                        } else {
+                            boolean validate = false;
+                            int k = 0;
+                            while(!validate) {
+                                String nameColonne = tabFormulaConcat[j].substring(0, tabFormulaConcat[j].length() - numberSeparator + k);
+                                int numberLigne = Integer.parseInt(tabFormulaConcat[j].substring(tabFormulaConcat[j].length() - numberSeparator + k, tabFormulaConcat[j].length()));
+                                if (currentTable.getValueCell(nameColonne, numberLigne) != "") {
+                                    resultConcat += currentTable.getValueCell(nameColonne, numberLigne);
+                                    validate = true;
+                                }
+                                if(k==tabFormulaConcat[j].length()){
+                                    error = true;
+                                    break;
+                                }
+                                k++;
+                            }
+                        }
+                    }
+                    if(error){
+                        labelError.setText("Une erreur est présente dans la formule");
+                    } else{
+                        currentTable.setValueCell(colonneSelected,ligneSelected,resultConcat);
+                        currentTable.setFormulaCell(colonneSelected,ligneSelected,formulaText);
+                    }
+                    break;
+
+                default:
+                    break;
             }
         }
     }
