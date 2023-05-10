@@ -5,6 +5,7 @@ import com.example.Project_Table.Modele.Ligne;
 import com.example.Project_Table.Modele.Table;
 import com.example.Project_Table.StartApplication;
 import com.example.Project_Table.Modele.Formula;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -111,6 +112,8 @@ public class Excel implements Initializable {
                     public void startEdit() {
                         if (isEditable) {
                             oldValue = getItem();
+                            int rowIndex  = getIndex();
+                            int indexColumn = getTableView().getColumns().indexOf(column);
                             super.startEdit();
                         }
                     }
@@ -121,6 +124,7 @@ public class Excel implements Initializable {
                         int indexColumn = getTableView().getColumns().indexOf(column);
                         super.commitEdit(newValue);
                         tableSelected.changeValueLigne(rowIndex,indexColumn,oldValue,newValue);
+                        initializeTableView(tableSelected.getNom());
                     }
                 };
                 cell.setConverter(new StringConverter<String>() {
@@ -218,10 +222,11 @@ public class Excel implements Initializable {
                 if (selectionModel.getSelectedItem() != null) {
                     int selectedIndex = selectionModel.getSelectedIndex();
                     TableColumn<ObservableMap<String, String>, String> selectedColumn = selectionModel.getSelectedCells().get(0).getTableColumn();
-                    if(selectedColumn.toString() != "Numero"){
-                        formulaTextField.setText(data.getTable(tableSelected).getFormulaCell(selectedColumn.toString(),selectedIndex));
-                        colonneSelected = selectedColumn.toString();
+                    if(selectedColumn.getText() != "Numero"){
+                        formulaTextField.setText(data.getTable(tableSelected).getFormulaCell(selectedColumn.getText(),selectedIndex));
+                        colonneSelected = selectedColumn.getText();
                         ligneSelected = selectedIndex;
+                        System.out.println(colonneSelected+" "+ligneSelected);
                     }
                 }
             }
@@ -242,11 +247,13 @@ public class Excel implements Initializable {
                 }
                 i++;
             }
+            System.out.println(wordFormule);
             switch (wordFormule){
                 case "Today" :
                     LocalDate currentDate = LocalDate.now();
                     currentTable.setValueCell(colonneSelected,ligneSelected,currentDate.toString());
                     currentTable.setFormulaCell(colonneSelected,ligneSelected,formulaText);
+                    initializeTableView(tableSelected);
                     break;
 
                 case "Calcul" :
@@ -255,7 +262,7 @@ public class Excel implements Initializable {
                 case "Concat" :
                     boolean error = false;
                     int j = 0;
-                    String formulaConcat = formulaText.substring(0,7);
+                    String formulaConcat = formulaText.substring(7,formulaText.length()-1);
                     String[] tabFormulaConcat = formulaConcat.split(",");
                     String resultConcat = "";
                     int numberSeparator = (int) (Math.floor(Math.log10(Math.abs(currentTable.getLongestLigne()))) + 1);
@@ -263,7 +270,7 @@ public class Excel implements Initializable {
                     StringBuilder stringBuilder = new StringBuilder();
                     stringBuilder.append(charRecherche);
                     CharSequence charSequence = stringBuilder;//Pour convertir le char de recherche en une chaine de séquence pour la fonciton contains
-                    while(tabFormulaConcat.length < j){
+                    while(tabFormulaConcat.length > j){
                         if(tabFormulaConcat[j].contains(charSequence)){
                             resultConcat += removeFirstLastChars(tabFormulaConcat[j]);
                         } else {
@@ -283,12 +290,14 @@ public class Excel implements Initializable {
                                 k++;
                             }
                         }
+                        j++;
                     }
                     if(error){
                         labelError.setText("Une erreur est présente dans la formule");
                     } else{
                         currentTable.setValueCell(colonneSelected,ligneSelected,resultConcat);
                         currentTable.setFormulaCell(colonneSelected,ligneSelected,formulaText);
+                        initializeTableView(tableSelected);
                     }
                     break;
 
@@ -315,7 +324,6 @@ public class Excel implements Initializable {
         deleteItem.setOnAction(event -> {
             idTable.getColumns().removeIf(col -> col.getText().equals(nameClickTableView));
             idTable.refresh();
-            System.out.println(nameClickTableView);
         });
         ajoutColonne.setOnAction(event -> {
             boolean validate = false;

@@ -61,12 +61,12 @@ public class AddTableView implements Initializable {
         if(!textFieldNbLigne.getText().equals("") && textFieldNbLigne.getText() != null)
             nbLigne = Integer.parseInt(textFieldNbLigne.getText());
         for(TextField textFieldCurrent : tabTextFieldColonne){
-            if(textFieldCurrent.getText() != "" && !table.verificationNomColonne(textFieldCurrent.getText())) {
+            if(textFieldCurrent.getText() != "" && table.verificationNomColonne(textFieldCurrent.getText()) && textFieldCurrent.getText().length() > 0) {
                 Colonne uneColonne = new Colonne(textFieldCurrent.getText());
                 table.addColonne(uneColonne);
                 ArrayList<Ligne> listLigne = new ArrayList<>();
-                for(int i=0;i<nbLigne;i++){
-                    Ligne uneLigne = new Ligne("",i,"");
+                for (int i = 0; i < nbLigne; i++) {
+                    Ligne uneLigne = new Ligne("", i, "");
                     listLigne.add(uneLigne);
                 }
                 uneColonne.setLigne(listLigne);

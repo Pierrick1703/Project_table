@@ -21,9 +21,10 @@ public class Database {
     private ObservableList<String> items;
 
     public Database() {
-        this.url = "jdbc:mariadb://109.234.162.158:3306:3306/gocl4291_wegrow_sandbox";
+        this.url = "jdbc:mariadb://109.234.162.158:3306/gocl4291_wegrow_sandbox";
+        //this.url = "jdbc:mariadb://11.106.0.18:3306:3306/gocl4291_wegrow_sandbox";
         this.username = "gocl4291_pcottin";
-        this.password = "sVP&d8h;$eYT";
+        this.password = "*YF!b+BjsUey";
         this.listTable = new ArrayList<Table>();
     }
     public Connection getConnection() throws SQLException {
@@ -52,7 +53,7 @@ public class Database {
     }
 
     public Table fetchQuery(){
-        try (Connection conn = this.getConnection()) {
+    /*    try (Connection conn = this.getConnection()) {
             Statement stmt = conn.createStatement();
 
             String sql = "SELECT * FROM dataTable";
@@ -70,7 +71,7 @@ public class Database {
             stmt.close();
         } catch (SQLException e) {
             System.err.println("Erreur lors de la connexion à la base de données : " + e.getMessage());
-        }
+        }*/
 
         return null;
     }
@@ -89,7 +90,7 @@ public class Database {
     }
 
     public void save(){
-        try (Connection conn = this.getConnection()) {
+       /* try (Connection conn = this.getConnection()) {
             Statement stmt = conn.createStatement();
 
             String sql = "TRUNCATE TABLE dataTable";
@@ -113,7 +114,7 @@ public class Database {
             stmt.close();
         } catch (SQLException e) {
             System.err.println("Erreur lors de la connexion à la base de données : " + e.getMessage());
-        }
+        }*/
     }
 }
 
