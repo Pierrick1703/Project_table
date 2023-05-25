@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>Quality_software_rendu</artifactId>
+    <artifactId>Project_table</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Quality_software_rendu</name>
 
@@ -59,7 +59,6 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>

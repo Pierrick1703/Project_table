@@ -11,7 +11,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Optional;
 
 public class HelloController {
@@ -44,22 +43,31 @@ public class HelloController {
         String identifiant = IdentifiantUtilisateurIn.getText();
         String motdepasse = MotdepasseUtilisateurIn.getText();
 
+
       //je verifit les information d'idendification
         boolean identifiantsValides = verificationadressemail(identifiant);
         boolean motDePasseValide = verificationmotdepasse(motdepasse);
 
         if (identifiantsValides && motDePasseValide) {
-            // Si les identifiants sont valides,    on charge la page creationutilisateur-view.fxml
+            // Si les identifiants sont valides,on charge la page pageCréationGroupe.fxml
             try{
-                    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("creationutilisateur-view.fxml")));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("pageCréationGroupe.fxml"));
+                Parent root = loader.load();
+
+                // Obtenir le contrôleur du fichier FXML chargé
+                ControleurGroupe controleurGroupe = loader.getController();
+
+                // Passer les données (adresse e-mail de l'utilisateur) au contrôleur de destination
+                controleurGroupe.setAdresseEmailUtilisateur(IdentifiantUtilisateurIn.getText());
+
+               // Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("pageCréationGroupe.fxml")));
                     Scene scene = new Scene(root);
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.setScene(scene);
                     stage.show();
                } catch (IOException e) {
-                    e.printStackTrace();
-               }
-        } else {
+                    e.printStackTrace();}
+               }else {
             // Sinon, on affiche un message d'erreur
             MessageErreurConnexionOut.setText("Identifiants incorrects.");
         }
@@ -119,6 +127,7 @@ public class HelloController {
         boolean isValid = motdepasse.matches(passwordRegex);
         return isValid;
     }
+
 
 }
 

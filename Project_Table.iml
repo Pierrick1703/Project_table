@@ -10,21 +10,47 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:11.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:11.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:11.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:win:11.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:11.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:win:11.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:11.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:win:11.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.controlsfx:controlsfx:11.1.0" level="project" />
-    <orderEntry type="library" name="Maven: com.dlsc.formsfx:formsfx-core:11.3.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.8.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.opentest4j:opentest4j:1.2.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.8.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.apiguardian:apiguardian-api:1.1.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.8.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.8.1" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.openjfx:javafx-controls:11.0.2" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.openjfx:javafx-controls:win:11.0.2" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.openjfx:javafx-graphics:11.0.2" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.openjfx:javafx-graphics:win:11.0.2" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.openjfx:javafx-base:11.0.2" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.openjfx:javafx-base:win:11.0.2" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.openjfx:javafx-fxml:11.0.2" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.openjfx:javafx-fxml:win:11.0.2" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.controlsfx:controlsfx:11.1.0" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.dlsc.formsfx:formsfx-core:11.3.2" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.8.1" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="Maven: org.opentest4j:opentest4j:1.2.0" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.8.1" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="Maven: org.apiguardian:apiguardian-api:1.1.2" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.8.1" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.8.1" level="project" />
+    <orderEntry type="module-library" exported="" scope="TEST">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/poi-src-5.2.3-20220909.zip!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/Downloads/poi-src-5.2.3-20220909.zip!/poi-src-5.2.3-20220909-5.2.3/osgi/src/main/java" />
+          <root url="jar://$USER_HOME$/Downloads/poi-src-5.2.3-20220909.zip!/poi-src-5.2.3-20220909-5.2.3/osgi/src/test/java" />
+          <root url="jar://$USER_HOME$/Downloads/poi-src-5.2.3-20220909.zip!/poi-src-5.2.3-20220909-5.2.3/poi-examples/src/main/java" />
+          <root url="jar://$USER_HOME$/Downloads/poi-src-5.2.3-20220909.zip!/poi-src-5.2.3-20220909-5.2.3/poi-examples/src/main/ruby/java" />
+          <root url="jar://$USER_HOME$/Downloads/poi-src-5.2.3-20220909.zip!/poi-src-5.2.3-20220909-5.2.3/poi-examples/src/test/java" />
+          <root url="jar://$USER_HOME$/Downloads/poi-src-5.2.3-20220909.zip!/poi-src-5.2.3-20220909-5.2.3/poi-excelant/src/main/java" />
+          <root url="jar://$USER_HOME$/Downloads/poi-src-5.2.3-20220909.zip!/poi-src-5.2.3-20220909-5.2.3/poi-excelant/src/poi-ant-contrib/java" />
+          <root url="jar://$USER_HOME$/Downloads/poi-src-5.2.3-20220909.zip!/poi-src-5.2.3-20220909-5.2.3/poi-excelant/src/test/java" />
+          <root url="jar://$USER_HOME$/Downloads/poi-src-5.2.3-20220909.zip!/poi-src-5.2.3-20220909-5.2.3/poi-integration/src/test/java" />
+          <root url="jar://$USER_HOME$/Downloads/poi-src-5.2.3-20220909.zip!/poi-src-5.2.3-20220909-5.2.3/poi-ooxml-lite-agent/src/main/java" />
+          <root url="jar://$USER_HOME$/Downloads/poi-src-5.2.3-20220909.zip!/poi-src-5.2.3-20220909-5.2.3/poi-ooxml/src/main/java" />
+          <root url="jar://$USER_HOME$/Downloads/poi-src-5.2.3-20220909.zip!/poi-src-5.2.3-20220909-5.2.3/poi-ooxml/src/test/java" />
+          <root url="jar://$USER_HOME$/Downloads/poi-src-5.2.3-20220909.zip!/poi-src-5.2.3-20220909-5.2.3/poi-scratchpad/src/main/java" />
+          <root url="jar://$USER_HOME$/Downloads/poi-src-5.2.3-20220909.zip!/poi-src-5.2.3-20220909-5.2.3/poi-scratchpad/src/test/java" />
+          <root url="jar://$USER_HOME$/Downloads/poi-src-5.2.3-20220909.zip!/poi-src-5.2.3-20220909-5.2.3/poi/src/main/java" />
+          <root url="jar://$USER_HOME$/Downloads/poi-src-5.2.3-20220909.zip!/poi-src-5.2.3-20220909-5.2.3/poi/src/test/java" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
