@@ -44,7 +44,6 @@ public class Database {
     public Table getTable(String name){
         Table tableReturn = null;
         for (Table tableCourant : listTable){
-            System.out.println(tableCourant.getNom());
             if(Objects.equals(name, tableCourant.getNom())){
                 tableReturn = tableCourant;
             }
@@ -53,7 +52,7 @@ public class Database {
     }
 
     public Table fetchQuery(){
-    /*    try (Connection conn = this.getConnection()) {
+        try (Connection conn = this.getConnection()) {
             Statement stmt = conn.createStatement();
 
             String sql = "SELECT * FROM dataTable";
@@ -61,7 +60,6 @@ public class Database {
 
             while (rs.next()) {
                 String jsonString = rs.getString("jsonTable");
-                System.out.println(jsonString);
                 JSONObject jsonObject = new JSONObject(jsonString);
                 String nom = rs.getString("nameTable");
                 Table table = new Table(jsonObject);
@@ -71,7 +69,7 @@ public class Database {
             stmt.close();
         } catch (SQLException e) {
             System.err.println("Erreur lors de la connexion à la base de données : " + e.getMessage());
-        }*/
+        }
 
         return null;
     }
@@ -90,7 +88,9 @@ public class Database {
     }
 
     public void save(){
-       /* try (Connection conn = this.getConnection()) {
+        for(Table currentTable : listTable){
+        }
+        try (Connection conn = this.getConnection()) {
             Statement stmt = conn.createStatement();
 
             String sql = "TRUNCATE TABLE dataTable";
@@ -105,7 +105,7 @@ public class Database {
 
             String stringRequest = "";
             for(Table currentTable : listTable){
-                stringRequest += "('"+currentTable.getNom()+"','"+currentTable.toJson()+"',null,null,null),";
+                stringRequest += "('"+currentTable.getNom()+"','"+currentTable.toJson().toString().replace("\\","\\\\")+"',null,null,null),";
             }
             stringRequest = stringRequest.substring(0,stringRequest.length() -1);
             String sql = "insert into dataTable (nameTable,jsonTable,ViewUserId,EditUserId,AdminUserId) values" + stringRequest+";";
@@ -114,7 +114,7 @@ public class Database {
             stmt.close();
         } catch (SQLException e) {
             System.err.println("Erreur lors de la connexion à la base de données : " + e.getMessage());
-        }*/
+        }
     }
 }
 

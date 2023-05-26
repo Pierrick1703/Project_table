@@ -2,7 +2,6 @@ package com.example.Project_Table.Modele;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.*;
 
 public class Table {
@@ -30,44 +29,34 @@ public class Table {
     public List<Colonne> getColonne(){
         return this.Colonne;
     }
-    public void setColonne(List<Colonne> colonne){
-        this.Colonne = colonne;
+
+    public List<String> getFormulaUse(int indexLigne,int indexColonne){
+        List<String> resultList;
+        Ligne row = Colonne.get(indexColonne).getLigne(indexLigne);
+        resultList = row.getUsedToFormule();
+        return resultList;
     }
 
-    public void setNom(String nom){
-        this.Nom = nom;
+    public Colonne getColonne(int indexColonne){
+        Colonne resultColonne = null;
+        resultColonne = this.Colonne.get(indexColonne);
+        return resultColonne;
     }
-    //endregion
-    public int getLongestLigne(){
-        int result = 0;
-        for(Colonne colonne : this.Colonne){
-            try{
-                if(result < colonne.getLengthLigne())
-                    result = colonne.getLengthLigne();
-            }catch (Exception e){
 
+    public Colonne getColonne(String nomColonne){
+        Colonne resultColonne = null;
+        for(Colonne currentColonne : this.Colonne){
+            if(Objects.equals(nomColonne,currentColonne.getNom())){
+                resultColonne = currentColonne;
             }
         }
-        return result;
+        return resultColonne;
     }
-    public List<Colonne> Initialisation(){
-        List<Colonne> result = new ArrayList<Colonne>();
-        Colonne colonne = new Colonne("Numéro");
-        List<Ligne> listLigne = new ArrayList<Ligne>();
-        Ligne l = new Ligne("1",1,"");
-        listLigne.add(l);
-        colonne.setLigne(listLigne);
-        result.add(colonne);
-        return result;
-    }
-    public void addColonne(Colonne uneColonne){
-        this.Colonne.add(uneColonne);
-        verificationNombreLigne();
-    }
+
     public String getValueCell(String colonneName, int ligneNumber){
         String result = "";
         for(int i=0;i<Colonne.size();i++){
-            if(Colonne.get(i).getNom() == colonneName){
+            if(Colonne.get(i).getNom().equals(colonneName)){
                 Colonne uneColonne = Colonne.get(i);
                 Ligne uneLigne = uneColonne.getLigne().get(ligneNumber);
                 result = uneLigne.getValeur();
@@ -88,6 +77,21 @@ public class Table {
         return result;
     }
 
+    public String getFormulaCell(int colonneIndex, int ligneNumber){
+        String result = "";
+        Colonne uneColonne = Colonne.get(colonneIndex);
+        Ligne uneLigne = uneColonne.getLigne().get(ligneNumber);
+        result = uneLigne.getForumle();
+        return result;
+    }
+    public void setColonne(List<Colonne> colonne){
+        this.Colonne = colonne;
+    }
+
+    public void setNom(String nom){
+        this.Nom = nom;
+    }
+
     public void setFormulaCell(String colonneName, int ligneNumber,String formula){
         String result = "";
         for(int i=0;i<Colonne.size();i++){
@@ -97,6 +101,43 @@ public class Table {
                 uneLigne.setForumle(formula);
             }
         }
+    }
+
+    public void setValueCell(String colonneName, int ligneNumber,String valeur){
+        for(int i=0;i<Colonne.size();i++){
+            if(Colonne.get(i).getNom() == colonneName){
+                Colonne uneColonne = Colonne.get(i);
+                Ligne uneLigne = uneColonne.getLigne().get(ligneNumber);
+                uneLigne.setValeur(valeur);
+            }
+        }
+    }
+    //endregion
+    public int getLongestLigne(){
+        int result = 0;
+        for(Colonne colonne : this.Colonne){
+            try{
+                if(result < colonne.getLengthLigne())
+                    result = colonne.getLengthLigne();
+            }catch (Exception ignored){
+
+            }
+        }
+        return result;
+    }
+    public List<Colonne> Initialisation(){
+        List<Colonne> result = new ArrayList<Colonne>();
+        Colonne colonne = new Colonne("Numéro");
+        List<Ligne> listLigne = new ArrayList<Ligne>();
+        Ligne l = new Ligne("1",1,"");
+        listLigne.add(l);
+        colonne.setLigne(listLigne);
+        result.add(colonne);
+        return result;
+    }
+    public void addColonne(Colonne uneColonne){
+        this.Colonne.add(uneColonne);
+        verificationNombreLigne();
     }
 
     public JSONObject toJson(){
@@ -122,17 +163,6 @@ public class Table {
         return result;
     }
 
-    public void setValueCell(String colonneName, int ligneNumber,String valeur){
-        for(int i=0;i<Colonne.size();i++){
-            if(Colonne.get(i).getNom() == colonneName){
-                Colonne uneColonne = Colonne.get(i);
-                Ligne uneLigne = uneColonne.getLigne().get(ligneNumber);
-                uneLigne.setValeur(valeur);
-            }
-        }
-    }
-
-
     public void verificationNombreLigne(){
         List<Ligne> listLigne = new ArrayList<Ligne>();
         for(Colonne currentColonne : this.Colonne){
@@ -145,15 +175,21 @@ public class Table {
             }
         }
     }
-    public Colonne getColonne(int indexColonne){
-        Colonne resultColonne = null;
-        resultColonne = this.Colonne.get(indexColonne);
-        return resultColonne;
-    }
+
     public void changeValueLigne(int indexLigne,int indexColonne,String oldValue,String newValue){
         Ligne row = Colonne.get(indexColonne).getLigne(indexLigne);
         if(row.getValeur() == oldValue){
             row.setValeur(newValue);
         }
+    }
+
+    public boolean existCell(String colonneName, int ligneNumber){
+        boolean result = false;
+        for(int i=0;i<Colonne.size();i++){
+            if(Colonne.get(i).getNom().equals(colonneName)){
+                result = true;
+            }
+        }
+        return result;
     }
 }

@@ -43,6 +43,12 @@ public class Colonne {
         return this.Ligne;
     }
 
+    public Ligne getLigne(int indexLigne){
+        Ligne resultLigne = null;
+        resultLigne = this.Ligne.get(indexLigne);
+        return resultLigne;
+    }
+
     public void setNom(String nom){
         this.Nom = nom;
     }
@@ -70,10 +76,5 @@ public class Colonne {
         json.put("Ligne", lignesJson);
 
         return json;
-    }
-    public Ligne getLigne(int indexLigne){
-        Ligne resultLigne = null;
-        resultLigne = this.Ligne.get(indexLigne);
-        return resultLigne;
     }
 }
