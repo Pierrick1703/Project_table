@@ -11,6 +11,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import javafx.event.ActionEvent;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,6 +50,7 @@ public class Excel implements Initializable {
     @FXML public ListView<String> idList = new ListView<String>();
 
     @FXML public Label labelError;
+    @FXML public Label idLabelCelluleCible;
 
     private String tableSelected;
     private String colonneSelected;
@@ -97,12 +99,16 @@ public class Excel implements Initializable {
     private void initializeTableView(String nameTable){
         idTable.getColumns().clear();
         Table tableSelected = data.getTable(nameTable);
-        idTable.setEditable(true);
+        if(tableSelected.getEcriture()){
+            idTable.setEditable(true);
+        }
         for(int i=0; i < tableSelected.getColonne().size();i++){
             String name = tableSelected.getColonne().get(i).getNom();
             TableColumn<ObservableMap<String, String>, String> column1 = new TableColumn<>(name);
             column1.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(name)));
-            column1.setContextMenu(createContextMenu());
+            if(tableSelected.getEcriture()){
+                column1.setContextMenu(createContextMenu());
+            }
             final boolean isEditable = !"Numéro".equalsIgnoreCase(name);
             column1.setCellFactory(column -> {
                 TextFieldTableCell<ObservableMap<String, String>, String> cell = new TextFieldTableCell<>() {
@@ -159,16 +165,8 @@ public class Excel implements Initializable {
                         return string;
                     }
                 });
-                /*cell.setOnMouseClicked(event -> {//edit de la cellule - obsolete pour être remplacer par la fonction startEdit ré-écrit
-                    if (event.getClickCount() == 2 && event.getButton() == MouseButton.PRIMARY && cell.getTableView().getColumns().indexOf(cell.getTableColumn()) != 0) {
-                        String cellValue = cell.getItem();
-                        if(cellValue != null) {
-                            cell.startEdit();
-                        }
-                    }
-                });*/
                 cell.setOnMouseClicked(event -> {//ajout d'une ligne en faisant un double-clic sur une ligne vide
-                    if (event.getClickCount() == 2 && event.getButton() == MouseButton.PRIMARY) {
+                    if (event.getClickCount() == 2 && event.getButton() == MouseButton.PRIMARY && tableSelected.getEcriture()) {
                         String cellValue = cell.getItem();
                         if(cellValue == null) {
                             ObservableList<ObservableMap<String, String>> data = FXCollections.observableArrayList();
@@ -206,10 +204,14 @@ public class Excel implements Initializable {
         for(int j=0;j<tableSelected.getLongestLigne();j++) {
             ObservableMap<String, String> row1 = FXCollections.observableHashMap();
             for(int k=0;k<idTable.getColumns().size();k++){
-                if(idTable.getColumns().get(k).getText() == "Numéro"){
+                if(idTable.getColumns().get(k).getText().equals("Numéro")){
                     row1.put(idTable.getColumns().get(k).getText(), String.valueOf(j));
                 } else {
-                    row1.put(idTable.getColumns().get(k).getText(), tableSelected.getColonne().get(k).getLigne().get(j).getValeur());
+                    try{
+                        row1.put(idTable.getColumns().get(k).getText(), tableSelected.getColonne().get(k).getLigne().get(j).getValeur());
+                    } catch(Exception e){
+                        row1.put(idTable.getColumns().get(k).getText(), "");
+                    }
                 }
             }
             data.add(row1);
@@ -219,7 +221,7 @@ public class Excel implements Initializable {
 
     private void eventHandlerTableView(){
         idTable.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.SECONDARY) {
+            if (event.getButton() == MouseButton.SECONDARY && data.getTable(tableSelected).getEcriture()) {
                 EventTarget target = event.getTarget();
                 if (target instanceof Text) {
                     nameClickTableView = ((Text) target).getText();
@@ -227,7 +229,7 @@ public class Excel implements Initializable {
             }
         });
         idTable.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2 && event.getButton() == MouseButton.PRIMARY) {
+            if (event.getClickCount() == 2 && event.getButton() == MouseButton.PRIMARY && data.getTable(tableSelected).getEcriture()) {
                 TableView.TableViewSelectionModel<ObservableMap<String, String>> selectionModel = idTable.getSelectionModel();
                 if (selectionModel.getSelectedItem() != null && lastClick != null && lastClick.getButton() == event.getButton()) {
                     int selectedIndex = selectionModel.getSelectedIndex();
@@ -238,7 +240,7 @@ public class Excel implements Initializable {
             lastClick = event;
         });
         idTable.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 1 && event.getButton() == MouseButton.PRIMARY) {
+            if (event.getClickCount() == 1 && event.getButton() == MouseButton.PRIMARY && data.getTable(tableSelected).getEcriture()) {
                 TableView.TableViewSelectionModel<ObservableMap<String, String>> selectionModel = idTable.getSelectionModel();
                 if (selectionModel.getSelectedItem() != null) {
                     int selectedIndex = selectionModel.getSelectedIndex();
@@ -247,6 +249,7 @@ public class Excel implements Initializable {
                         formulaTextField.setText(data.getTable(tableSelected).getFormulaCell(selectedColumn.getText(),selectedIndex));
                         colonneSelected = selectedColumn.getText();
                         ligneSelected = selectedIndex;
+                        idLabelCelluleCible.setText(colonneSelected+ligneSelected);
                     }
                 }
             }
@@ -254,7 +257,7 @@ public class Excel implements Initializable {
     }
 
     private void onKeyTyped(KeyEvent event) {
-        if(event.getCharacter().equals("\r")) {
+        if(event.getCharacter().equals("\r") && data.getTable(tableSelected).getEcriture()) {
             if (event.getTarget() instanceof TextField) {
                 TextField textField = (TextField) event.getTarget();
                 String textFieldId = textField.getId();
@@ -394,4 +397,16 @@ public class Excel implements Initializable {
             concat(formula,currentTable,formulaType);
     }
 
+    public void clickImportTable(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader root = new FXMLLoader(StartApplication.class.getResource("FileSelector.fxml"));
+        Scene scene = new Scene(root.load(), 700, 400);
+        stage.setTitle("JCPA-APPLICATION");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void ActualiserClick(ActionEvent actionEvent) {
+        buildListView();
+    }
 }

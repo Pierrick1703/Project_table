@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="472.0" prefWidth="600.0" style="-fx-background-color: #f2f2f2; -fx-font-size: 12;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Project_Table.controller.FileSelectorController">
+    <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#selectFile" prefHeight="25.0" prefWidth="253.0" style="-fx-background-color: #008CBA; -fx-text-fill: white; -fx-font-size: 10pt; -fx-pref-width: 150px;" text="Sélectionner un fichier" />
+    <Label layoutX="14.0" layoutY="60.0" style="-fx-font-size: 12pt;" text="Nom du fichier : " />
+    <TextField fx:id="fileNameTextField" layoutX="132.0" layoutY="55.0" prefHeight="35.0" prefWidth="417.0" style="-fx-background-color: white; -fx-font-size: 12pt;" />
+    <TableView fx:id="table" layoutX="14.0" layoutY="103.0" prefHeight="302.0" prefWidth="630.0" style="-fx-background-color: white;">
+        <columns>
+            <TableColumn fx:id="col1" editable="true" prefWidth="150.0" style="-fx-alignment: CENTER;" text="Nom de la colonne 1" />
+            <TableColumn fx:id="col2" editable="true" prefWidth="149.0" style="-fx-alignment: CENTER;" text="Nom de la colonne 2" />
+            <TableColumn fx:id="col3" editable="true" minWidth="0.0" prefWidth="131.0" style="-fx-alignment: CENTER;" text="Nom de la colonne 3" />
+            <TableColumn fx:id="col4" editable="true" minWidth="0.0" prefWidth="141.0" style="-fx-alignment: CENTER;" text="Nom de la colonne 4" />
+        </columns>
+    </TableView>
+    <TextField fx:id="dbNameTextField" layoutX="28.0" layoutY="413.0" prefHeight="35.0" prefWidth="381.0" promptText="Saisir le nom de la nouvelle table" style="-fx-background-color: white; -fx-font-size: 12pt;" />
+    <Button layoutX="178.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToExcel" prefHeight="28.0" prefWidth="150.0" style="-fx-background-color: #008CBA; -fx-text-fill: white; -fx-pref-width: 180 px; -fx-font-size: 10pt;" text="Base de données" />
+    <Button layoutX="420.0" layoutY="417.0" mnemonicParsing="false" onAction="#createTable" prefHeight="28.0" prefWidth="150.0" style="-fx-background-color: #008CBA; -fx-text-fill: white; -fx-pref-width: 180 px; -fx-font-size: 10pt;" text="Créer la table" />
+
+</AnchorPane>

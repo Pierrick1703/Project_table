@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="PageCreationGroupe" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="492.0" prefWidth="709.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Project_Table.controller.ControleurGroupe">
+   <children>
+      <AnchorPane layoutY="-8.0" prefHeight="503.0" prefWidth="149.0" style="-fx-background-color: #A9B0BE;">
+         <children>
+            <Hyperlink fx:id="pageCreationutilisateurlien" layoutX="16.0" layoutY="114.0" onAction="#lienpagecreationuser" text="Création d'utilisateur" textFill="#f2f3f6" />
+            <Hyperlink fx:id="pageListeutilisateurslien" layoutX="21.0" layoutY="194.0" onAction="#lienlisteutilisateur" prefHeight="23.0" prefWidth="108.0" text="Liste utilisateurs" textFill="#f2f3f6" />
+            <ImageView fitHeight="23.0" fitWidth="25.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Image/icon_utilisateur.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="nomidentifiantadminOut" layoutX="32.0" layoutY="13.0" prefHeight="17.0" prefWidth="108.0" text="Nom utilisateur">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font></Label>
+            <Hyperlink fx:id="LienPageDeconnexion" layoutX="35.0" layoutY="466.0" onAction="#liendeconnexion" text="Déconnexion" textFill="#1e6e15" />
+            <Line endX="73.0" layoutX="74.0" layoutY="185.0" startX="-74.0" stroke="#bfc4c9" />
+            <Line endX="73.0" layoutX="74.0" layoutY="147.0" startX="-74.0" stroke="#bfc4c9" />
+            <Line endX="73.0" layoutX="74.0" layoutY="225.0" startX="-74.0" stroke="#bfc4c9" />
+            <Hyperlink fx:id="MenuImporterGroupe" layoutX="21.0" layoutY="229.0" onAction="#ImporterFicherGroupeAction" prefHeight="23.0" prefWidth="108.0" text="Importer une liste" textFill="#f2f3f6" />
+            <Hyperlink fx:id="MenuExporterGroupe" layoutX="26.0" layoutY="271.0" onAction="#ExporterFicherGroupeAction" prefHeight="23.0" prefWidth="108.0" text="Exporter une liste" textFill="#f2f3f6" />
+            <Label layoutX="22.0" layoutY="154.0" prefHeight="17.0" prefWidth="108.0" text="Création groupe" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="149.0" prefHeight="49.0" prefWidth="560.0" style="-fx-background-color: #5F5265;">
+         <children>
+            <Label layoutX="190.0" layoutY="15.0" text="Création Groupe" textFill="#f8f6f6">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+            <Hyperlink fx:id="LienPageAccueil" layoutX="506.0" layoutY="14.0" onAction="#lienaccueilutilisateur" text="Accueil" textFill="#f4f3f3" />
+            <ImageView fitHeight="25.0" fitWidth="33.0" layoutX="481.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Image/accueil.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Button fx:id="SauvegardeGroupeCreerBouton" layoutX="592.0" layoutY="87.0" mnemonicParsing="false" onAction="#EnregistrerGroupeAction" style="-fx-background-color: #D88268;" text="Sauvegarder" />
+      <Label layoutX="203.0" layoutY="78.0" text="Nom :" />
+      <Label layoutX="159.0" layoutY="109.0" prefHeight="17.0" prefWidth="83.0" text="Département :" />
+      <TextArea fx:id="NomGroupeIn" layoutX="246.0" layoutY="60.0" prefHeight="17.0" prefWidth="299.0" style="-fx-background-color: #B1F6CA;" />
+      <TextArea fx:id="DepartementGroupeIn" layoutX="246.0" layoutY="99.0" prefHeight="17.0" prefWidth="299.0" style="-fx-background-color: #B1F6CA;" />
+      <Label layoutX="552.0" layoutY="78.0" text="*" textFill="#f20d0d" />
+      <Label layoutX="552.0" layoutY="109.0" prefHeight="17.0" prefWidth="6.0" text="*" textFill="#f20d0d" />
+      <TableView fx:id="TableauduGroupe" layoutX="149.0" layoutY="191.0" prefHeight="239.0" prefWidth="541.0">
+        <columns>
+          <TableColumn fx:id="colonneSelectgroupe" prefWidth="57.000030517578125">
+               <graphic>
+                  <RadioButton fx:id="ColonneSelectduTableauGroupe" mnemonicParsing="false" onAction="#SelectionnerToutAction" />
+               </graphic>
+            </TableColumn>
+          <TableColumn fx:id="ColonneTableauNomGroupe" minWidth="0.3333740234375" prefWidth="145.66668701171875" text="Nom" />
+            <TableColumn fx:id="ColonneDepartementduTableauGroupe" minWidth="0.3333740234375" prefWidth="208.0" text="Département" />
+            <TableColumn fx:id="ColonneNombreUtilisateurduTableauGroupe" minWidth="0.3333740234375" prefWidth="151.0" text="Nbre utilisateurs" />
+        </columns>
+      </TableView>
+      <Pagination fx:id="DefilerPageGroupeIn" layoutX="159.0" layoutY="149.0" maxPageIndicatorCount="30" prefHeight="45.0" prefWidth="241.0" />
+      <Button fx:id="SupprimerGroupedanslalisteBouton" layoutX="585.0" layoutY="440.0" mnemonicParsing="false" onAction="#SupprimerGroupe" style="-fx-background-color: #FCFCFA;" text="Supprimer">
+         <graphic>
+            <ImageView fitHeight="21.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Image/supprimer_icon.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="ModifierGroupedanslalisteBouton" layoutX="490.0" layoutY="439.0" mnemonicParsing="false" onAction="#ModifierGroupe" style="-fx-background-color: #FCFCFA;" text="Modifier">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Image/modifier_icon.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="SupprimerdoublonsGroupedanslalisteBouton1" layoutX="305.0" layoutY="441.0" mnemonicParsing="false" onAction="#SupprimerDoublonGroupe" style="-fx-background-color: #FCFCFA;" text="Supprimer les doublons">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Image/supprimer_doublon_icon.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <ComboBox fx:id="comboBoxGroupes" layoutX="525.0" layoutY="149.0" onAction="#RechercheTrieAction" prefWidth="150.0" promptText="Trie, Recherche" />
+      <Line endX="65.00001525878906" endY="23.666656494140625" layoutX="84.0" layoutY="235.0" startX="-84.0" startY="23.666656494140625" stroke="#bfc4c9" />
+      <Line endX="54.99998474121094" endY="50.333343505859375" layoutX="94.0" layoutY="245.0" startX="-94.00001525878906" startY="50.333343505859375" stroke="#bfc4c9" />
+      <Label fx:id="TotaldesEnregistrement" layoutX="151.0" layoutY="448.0" text="Total des enregistrements" textFill="#e2a936" />
+   </children>
+</AnchorPane>

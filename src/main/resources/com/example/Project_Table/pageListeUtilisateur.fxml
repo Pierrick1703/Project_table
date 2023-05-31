@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="PageCreationGroupe" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="566.0" prefWidth="1233.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Project_Table.controller.ControleurListeUtilisateur">
+   <children>
+      <AnchorPane layoutY="-8.0" prefHeight="573.0" prefWidth="149.0" style="-fx-background-color: #A9B0BE;">
+         <children>
+            <ImageView fitHeight="42.0" fitWidth="40.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Image/icon_utilisateur.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="nomidentifiantadminOut" layoutX="50.0" layoutY="13.0" prefHeight="17.0" prefWidth="90.0" text="Nom utilisateur" />
+            <Hyperlink fx:id="LienPageDeconnexion" layoutX="34.0" layoutY="536.0" onAction="#liendeconnexion" text="Déconnexion" textFill="#1e6e15" />
+            <Line endX="73.0" layoutX="74.0" layoutY="185.0" startX="-74.0" stroke="#bfc4c9" />
+            <Line endX="73.0" layoutX="74.0" layoutY="147.0" startX="-74.0" stroke="#bfc4c9" />
+            <Line endX="73.0" layoutX="74.0" layoutY="225.0" startX="-74.0" stroke="#bfc4c9" />
+            <Hyperlink fx:id="pageCreationutilisateurlien" layoutX="16.0" layoutY="113.0" onAction="#lienpagecreationuser" text="Création d'utilisateur" textFill="#f2f3f6" />
+            <Hyperlink fx:id="pageCreationGroupelien" layoutX="23.0" layoutY="151.0" onAction="#lienpagecreationgroupe" prefHeight="23.0" prefWidth="118.0" text="Création groupe " textFill="#f2f3f6" />
+            <Label layoutX="26.0" layoutY="192.0" text="Liste utilisateurs" textFill="WHITE" />
+            <Hyperlink fx:id="MenuImporterListeUtilisateurlienCSV" layoutX="29.0" layoutY="237.0" onAction="#ImporterFicherUtilisateurCSVAction" text="Importer CSV" textFill="#f2f3f6" />
+            <Hyperlink fx:id="pageCreationutilisaMenuExporterListeUtilisateurlien2" layoutX="5.0" layoutY="320.0" onAction="#ExporterFicherUtilisateurAction" text="Exporter Liste utilisateurs" textFill="#f2f3f6" />
+            <Hyperlink fx:id="pageCreationutilisaMenuImporterListeUtilisateurlienTXT" layoutX="30.0" layoutY="275.0" onAction="#ImporterFicherUtilisateurTXTAction" text="Importer TXT" textFill="#f2f3f6" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="143.0" prefHeight="49.0" prefWidth="1093.0" style="-fx-background-color: #5F5265;">
+         <children>
+            <Label layoutX="484.0" layoutY="13.0" text="Liste utilisateurs" textFill="#f8f6f6">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+            <Hyperlink fx:id="LienPageAccueil" layoutX="1033.0" layoutY="15.0" onAction="#lienaccueilutilisateur" text="Accueil" textFill="#f4f3f3" />
+            <ImageView fitHeight="25.0" fitWidth="33.0" layoutX="993.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Image/accueil.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <TableView fx:id="TableauUtilisateur" layoutX="153.0" layoutY="114.0" prefHeight="432.0" prefWidth="1077.0">
+        <columns>
+          <TableColumn fx:id="ColonneSelectutilisateur" prefWidth="48.666656494140625">
+               <graphic>
+                  <RadioButton fx:id="ColonneSelectduTableauUtilisateur" mnemonicParsing="false" onAction="#SelectionnerToututilisateurAction" />
+               </graphic>
+            </TableColumn>
+            <TableColumn fx:id="ColonneNomduTableauUtilisateur" minWidth="0.3333740234375" prefWidth="144.33334350585938" text="Nom" />
+            <TableColumn fx:id="ColonnePrénomduTableauUtilisateur" minWidth="0.3333740234375" prefWidth="153.0" text="Prénom" />
+            <TableColumn fx:id="ColonneTelduTableauUtilisateur" minWidth="0.3333740234375" prefWidth="118.6666259765625" text="Tel" />
+            <TableColumn fx:id="ColonneEmailduTableauUtilisateur" minWidth="0.3333740234375" prefWidth="135.66668701171875" text="Email" />
+            <TableColumn fx:id="ColonneGroupeduTableauUtilisateur" minWidth="0.3333740234375" prefWidth="151.0" text="Groupe" />
+            <TableColumn fx:id="ColonneTypeutilisateurduTableauUtilisateur" minWidth="0.3333740234375" prefWidth="189.33331298828125" text="Type Utilisateur" />
+        </columns>
+      </TableView>
+      <AnchorPane layoutX="157.0" layoutY="56.0" prefHeight="52.0" prefWidth="495.0">
+         <children>
+            <TextArea fx:id="ChamprechercherdansletableauUtilisateurIn" layoutX="269.0" layoutY="8.0" prefHeight="37.0" prefWidth="221.0" promptText="Rechercher" style="-fx-background-color: #B1F6CA;" />
+         </children>
+      </AnchorPane>
+      <Button fx:id="ModifierUtilisateurdanslalisteBouton" layoutX="1025.0" layoutY="65.0" mnemonicParsing="false" onAction="#ModifierUtilisateur" style="-fx-background-color: #FCFCFA;" text="Modifier">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Image/modifier_icon.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="SupprimerUtilisateurdanslalisteBouton" layoutX="1122.0" layoutY="67.0" mnemonicParsing="false" onAction="#SupprimerUtilisateur" style="-fx-background-color: #FCFCFA;" text="Supprimer">
+         <graphic>
+            <ImageView fitHeight="21.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Image/supprimer_icon.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Line endX="65.00003051757812" endY="24.0" layoutX="84.0" layoutY="235.0" startX="-84.0" startY="24.0" stroke="#bfc4c9" />
+      <Line endX="65.00003051757812" endY="66.0" layoutX="84.0" layoutY="235.0" startX="-84.0" startY="66.0" stroke="#bfc4c9" />
+      <Button fx:id="SupprimerdoublonsUtilisateurdanslalisteBouton" layoutX="836.0" layoutY="67.0" mnemonicParsing="false" onAction="#SupprimerDoublonUtilisateurAction" style="-fx-background-color: #FCFCFA;" text="Supprimer les doublons">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Image/supprimer_doublon_icon.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Pagination fx:id="DefilerPageUtilisateurIn" layoutX="166.0" layoutY="59.0" maxPageIndicatorCount="30" prefHeight="45.0" prefWidth="241.0" />
+      <Label fx:id="TotaldesEnregistrementutilisateur" layoutX="652.0" layoutY="74.0" text="Total des enregistrements" textFill="#e2a936" />
+   </children>
+</AnchorPane>

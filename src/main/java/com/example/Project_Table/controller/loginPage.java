@@ -1,20 +1,23 @@
-package com.example.Project_Table;
+package com.example.Project_Table.controller;
 
+import com.example.Project_Table.BDD.Database;
+import com.example.Project_Table.StartApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Optional;
 
-public class HelloController {
+public class loginPage {
 
     @FXML
     private VBox PageConnexion;
@@ -34,32 +37,59 @@ public class HelloController {
     @FXML
     private PasswordField MotdepasseUtilisateurIn;
 
-
+    private Database data = StartApplication.data;
 
 
     //Partie pour le bouton valider
     @FXML
-    void ConnexionButtonAction(ActionEvent event) {
+    void ConnexionButtonAction(ActionEvent event) throws IOException {
         // je recupère les informations entrer par l'utilisateur
         String identifiant = IdentifiantUtilisateurIn.getText();
         String motdepasse = MotdepasseUtilisateurIn.getText();
 
       //je verifit les information d'idendification
-        boolean identifiantsValides = verificationadressemail(identifiant);
-        boolean motDePasseValide = verificationmotdepasse(motdepasse);
+        boolean verificationAuthentification = data.verificationUser(identifiant,motdepasse);
 
-        if (identifiantsValides && motDePasseValide) {
-            // Si les identifiants sont valides,    on charge la page creationutilisateur-view.fxml
-            try{
-                    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("creationutilisateur-view.fxml")));
-                    Scene scene = new Scene(root);
-                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        if (verificationAuthentification) {
+            if (data.getUtilisateur().getNom().equals("Admin")) {
+                // Si les identifiants sont valides, on charge la page creationutilisateur-view.fxml
+                try {
+                    Stage stage = new Stage();
+                    FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("pageListeUtilisateur.fxml"));
+                    Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+                    Scene scene = new Scene(fxmlLoader.load(), screenSize.getWidth(), screenSize.getHeight());
+                    Scene sceneActuelle = ((Node) event.getSource()).getScene();
+                    Window fenetreActuelle = sceneActuelle.getWindow();
+                    ((Stage) fenetreActuelle).close();
+                    stage.setTitle("New Table");
                     stage.setScene(scene);
+                    stage.setMaximized(true);
                     stage.show();
-               } catch (IOException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
-               }
-        } else {
+                }
+            } else {
+                data.fetchQuery(data.getUtilisateur().getAdresseMail());
+                try {
+                    Stage stage = new Stage();
+                    FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("excel.fxml"));
+                    Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+                    Scene scene = new Scene(fxmlLoader.load(), screenSize.getWidth(), screenSize.getHeight());
+                    Scene sceneActuelle = ((Node) event.getSource()).getScene();
+                    Window fenetreActuelle = sceneActuelle.getWindow();
+                    ((Stage) fenetreActuelle).close();
+                    stage.setTitle("New Table");
+                    stage.setScene(scene);
+                    stage.setMaximized(true);
+                    stage.setOnHidden(event2 -> {
+                        StartApplication.data.save();
+                    });
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }else {
             // Sinon, on affiche un message d'erreur
             MessageErreurConnexionOut.setText("Identifiants incorrects.");
         }
@@ -81,7 +111,7 @@ public class HelloController {
             String email = result.get();
 
             // Vérifier si l'adresse mail est valide
-            boolean isEmailValid = verificationadressemail(email);
+            boolean isEmailValid = StartApplication.data.verificationAdresseMailMDPOublier(email);
 
             if (isEmailValid) {
                 // Envoyer le lien de réinitialisation du mot de passe à l'adresse mail
@@ -103,21 +133,6 @@ public class HelloController {
                 alert.showAndWait();
             }
         }
-    }
-
-    // Vérifie si l'adresse mail est valide
-    boolean verificationadressemail(String identifiant){
-        // On utilise une expression régulière pour valider l'adresse mail
-        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-        boolean isValid = identifiant.matches(emailRegex);
-        return isValid;
-    }
-
-    // Vérifie si le mot de passe est valide
-    boolean verificationmotdepasse(String motdepasse){
-        String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$";
-        boolean isValid = motdepasse.matches(passwordRegex);
-        return isValid;
     }
 
 }

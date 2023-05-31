@@ -77,4 +77,8 @@ public class Colonne {
 
         return json;
     }
+
+    public void AddLigne(Ligne ligne){
+        this.Ligne.add(ligne);
+    }
 }

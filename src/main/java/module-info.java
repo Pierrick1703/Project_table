@@ -10,7 +10,7 @@ module com.example.quality_software_rendu {
 
     opens com.example.Project_Table to javafx.fxml;
     exports com.example.Project_Table;
-    exports com.example.Project_Table.controller to javafx.fxml;
     opens com.example.Project_Table.controller to javafx.fxml;
+    exports com.example.Project_Table.controller;
 
 }

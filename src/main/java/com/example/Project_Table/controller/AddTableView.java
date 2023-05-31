@@ -54,6 +54,8 @@ public class AddTableView implements Initializable {
         tabTextFieldColonne.add(textField9);
         tabTextFieldColonne.add(textField10);
         Table table = new Table(textFieldTableName.getText());
+        table.setLecture(true);
+        table.setEcriture(false);
         StartApplication.data.addTable(table);
         String tableName = textFieldTableName.getText();
         textFieldNbLigne.getText();

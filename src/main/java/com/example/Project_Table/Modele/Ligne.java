@@ -81,4 +81,6 @@ public class Ligne {
         json.put("UsedToFormule", usedToFormuleJson);
         return json;
     }
+
+
 }

@@ -8,18 +8,24 @@ public class Table {
     private List<Colonne> Colonne;
     private String Nom;
 
+    private Boolean Ecriture;
+
+    private Boolean Lecture;
+
     //region Constructeur
     public Table(String nom){
         this.Colonne = Initialisation();
         this.Nom = nom;
     }
-    public Table(JSONObject json){
+    public Table(JSONObject json,Boolean Editeur,Boolean Lecteur){
         this.Nom = json.getString("Nom");
         this.Colonne = new ArrayList<Colonne>();
         JSONArray colonneJson = json.getJSONArray("Colonne");
         for(int i = 0;i < colonneJson.length();i++){
             this.Colonne.add(new Colonne((colonneJson.getJSONObject(i))));
         }
+        this.Ecriture = Editeur;
+        this.Lecture = Lecteur;
     }
     //endregion
     //region Getter and Setter
@@ -84,6 +90,15 @@ public class Table {
         result = uneLigne.getForumle();
         return result;
     }
+
+    public Boolean getEcriture(){
+        return this.Ecriture;
+    }
+
+    public Boolean getLecture() {
+        return Lecture;
+    }
+
     public void setColonne(List<Colonne> colonne){
         this.Colonne = colonne;
     }
@@ -112,6 +127,15 @@ public class Table {
             }
         }
     }
+
+    public void setEcriture(Boolean ecriture) {
+        Ecriture = ecriture;
+    }
+
+    public void setLecture(Boolean lecture) {
+        Lecture = lecture;
+    }
+
     //endregion
     public int getLongestLigne(){
         int result = 0;
@@ -192,4 +216,6 @@ public class Table {
         }
         return result;
     }
+
+
 }

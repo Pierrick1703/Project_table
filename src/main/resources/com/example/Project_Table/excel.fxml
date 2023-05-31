@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -7,12 +8,25 @@
     <HBox spacing="10">
         <Label>Formule :</Label>
         <TextField fx:id="formulaTextField" prefHeight="25.0" prefWidth="409.0" />
-      <Label fx:id="labelError" />
+        <Label fx:id="labelError" text="Cellule sélectionner :" />
+      <Label fx:id="idLabelCelluleCible" />
     </HBox>
-    <AnchorPane>
-       <children>
-             <ListView fx:id="idList" layoutX="14.0" layoutY="60.0" prefWidth="200" AnchorPane.bottomAnchor="10" AnchorPane.topAnchor="10" />
-             <TableView fx:id="idTable" layoutX="289.0" layoutY="60.0" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="230" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10" />
-       </children>
+    <AnchorPane prefHeight="476.0" prefWidth="740.0">
+        <children>
+            <ListView fx:id="idList" layoutX="14.0" layoutY="60.0" prefWidth="200" AnchorPane.bottomAnchor="10" AnchorPane.topAnchor="10" />
+            <TableView fx:id="idTable" layoutX="289.0" layoutY="60.0" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="230" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10" />
+        </children>
     </AnchorPane>
+    <HBox prefHeight="100.0" prefWidth="200.0" spacing="20" AnchorPane.leftAnchor="20">
+        <children>
+            <Label opacity="0.0" text="testtesttesttesttesttesttestesttesttestestest" visible="false" />
+            <Button fx:id="importButton" onAction="#clickImportTable" text="Importer tableur">
+                <HBox.margin>
+                    <Insets bottom="0" left="10" right="0" top="0" />
+                </HBox.margin>
+            </Button>
+            <Button fx:id="exportButton" text="Exporter tableur" />
+         <Button mnemonicParsing="false" onAction="#ActualiserClick" text="Actualisation" />
+        </children>
+    </HBox>
 </VBox>

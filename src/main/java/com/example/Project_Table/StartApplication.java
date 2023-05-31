@@ -22,20 +22,12 @@ import java.util.List;
 public class StartApplication extends Application {
 
     public static Database data = new Database();
-    //public static Stage stageAddTable = new Stage();
     @Override
     public void start(Stage stage) throws IOException {
-        Utilisateur utilisateur1 = new Utilisateur("COTTIN","Pierrick","cottin.pierrick@gmail.com");
-        data.fetchQuery();
-        FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("excel.fxml"));
-        Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
-        Scene scene = new Scene(fxmlLoader.load(), screenSize.getWidth(), screenSize.getHeight());
-        stage.setTitle("New Table");
+        FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("loginPage.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 700, 400);
+        stage.setTitle("PierTable-APPLICATION");
         stage.setScene(scene);
-        stage.setMaximized(true);
-        stage.setOnHidden(event2 -> {
-            data.save();
-        });
         stage.show();
     }
 

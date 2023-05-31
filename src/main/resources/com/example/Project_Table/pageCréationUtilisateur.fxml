@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="PageCreationUtilisateur" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="969.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Project_Table.controller.ControleurUtilisateur">
+   <children>
+      <AnchorPane layoutY="-11.0" prefHeight="512.0" prefWidth="156.0" style="-fx-background-color: #A9B0BE;">
+         <children>
+            <ImageView fitHeight="25.0" fitWidth="22.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Image/icon_utilisateur.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="nomidentifiantadminOut" layoutX="32.0" layoutY="13.0" prefHeight="17.0" prefWidth="108.0" text="Nom utilisateur">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font></Label>
+            <Hyperlink fx:id="LienPageDeconnexion" layoutX="34.0" layoutY="487.0" onAction="#liendeconnexion" text="Déconnexion" textFill="#1e6e15" />
+            <Line endX="73.0" layoutX="74.0" layoutY="185.0" startX="-74.0" stroke="#bfc4c9" />
+            <Line endX="73.0" layoutX="74.0" layoutY="147.0" startX="-74.0" stroke="#bfc4c9" />
+            <Line endX="73.0" layoutX="74.0" layoutY="225.0" startX="-74.0" stroke="#bfc4c9" />
+            <Hyperlink fx:id="pageCreationGroupelien" layoutX="23.0" layoutY="154.0" onAction="#lienpagecreationgroupe" prefHeight="23.0" prefWidth="118.0" text="Création groupe " textFill="#f2f3f6" />
+            <Hyperlink fx:id="pageListeutilisateurslien" layoutX="23.0" layoutY="192.0" onAction="#lienlisteutilisateur" prefHeight="23.0" prefWidth="108.0" text="Liste utilisateurs" textFill="#f2f3f6" />
+            <Label layoutX="28.0" layoutY="123.0" text="Création utilisateur" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="156.0" prefHeight="49.0" prefWidth="818.0" style="-fx-background-color: #5F5265;">
+         <children>
+            <Label layoutX="261.0" layoutY="14.0" text="Création d'utilisateur" textFill="#f8f6f6">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+            <Hyperlink fx:id="LienPageAccueil" layoutX="758.0" layoutY="13.0" onAction="#lienaccueilutilisateur" text="Accueil" textFill="#f4f3f3" />
+            <ImageView fitHeight="25.0" fitWidth="33.0" layoutX="733.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Image/accueil.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Button fx:id="SauvegardeUtilisateurCreerBouton" layoutX="396.0" layoutY="461.0" mnemonicParsing="false" onAction="#Enregistretutilisateur" style="-fx-background-color: #D88268;" text="Sauvegarder" />
+      <Label layoutX="203.0" layoutY="78.0" text="Nom :" />
+      <Label layoutX="184.0" layoutY="117.0" text="Prénom :" />
+      <Label layoutX="161.0" layoutY="228.0" text="Mot de passe :" />
+      <Label layoutX="208.0" layoutY="188.0" text="Tel :" />
+      <Label layoutX="200.0" layoutY="157.0" prefHeight="17.0" prefWidth="38.0" text="Email :" />
+      <TextArea fx:id="NomUilisateurIn" layoutX="246.0" layoutY="60.0" prefHeight="17.0" prefWidth="299.0" style="-fx-background-color: #B1F6CA;" />
+      <TextArea fx:id="PrenomUilisateurIn" layoutX="246.0" layoutY="98.0" prefHeight="17.0" prefWidth="299.0" style="-fx-background-color: #B1F6CA;" />
+      <TextArea fx:id="EmailUilisateurIn" layoutX="246.0" layoutY="138.0" prefHeight="17.0" prefWidth="299.0" style="-fx-background-color: #B1F6CA;" />
+      <TextArea fx:id="TelUilisateurIn" layoutX="246.0" layoutY="178.0" prefHeight="17.0" prefWidth="299.0" style="-fx-background-color: #B1F6CA;" />
+      <TextArea fx:id="MotdepassepardefautUilisateurIn" layoutX="246.0" layoutY="217.0" prefHeight="17.0" prefWidth="299.0" style="-fx-background-color: #B1F6CA;" />
+      <Label layoutX="552.0" layoutY="78.0" text="*" textFill="#f20d0d" />
+      <Label layoutX="552.0" layoutY="109.0" prefHeight="17.0" prefWidth="6.0" text="*" textFill="#f20d0d" />
+      <Label layoutX="552.0" layoutY="149.0" text="*" textFill="#f20d0d" />
+      <Label layoutX="552.0" layoutY="188.0" text="*" textFill="#f20d0d" />
+      <Label layoutX="552.0" layoutY="227.0" text="*" textFill="#f20d0d" />
+      <TextArea fx:id="MatriculeUilisateurIn" layoutX="246.0" layoutY="259.0" prefHeight="40.0" prefWidth="299.0" style="-fx-background-color: #B1F6CA;" />
+      <Label layoutX="172.0" layoutY="271.0" text="Matricule :" />
+      <Label layoutX="552.0" layoutY="271.0" text="*" textFill="#f20d0d" />
+      <Label layoutX="711.0" layoutY="101.0" text="* obligatoires" textFill="#f20d0d" />
+      <Label layoutX="174.0" layoutY="322.0" text="Groupe 1:" />
+      <TextArea fx:id="Groupeutilisateurin1" layoutX="246.0" layoutY="310.0" prefHeight="40.0" prefWidth="299.0" style="-fx-background-color: #B1F6CA;" />
+      <Label layoutX="174.0" layoutY="372.0" text="Groupe 2:" />
+      <TextArea fx:id="Groupeutilisateurin2" layoutX="246.0" layoutY="361.0" prefHeight="40.0" prefWidth="299.0" style="-fx-background-color: #B1F6CA;" />
+      <TextArea fx:id="Groupeutilisateurin3" layoutX="246.0" layoutY="407.0" prefHeight="40.0" prefWidth="299.0" style="-fx-background-color: #B1F6CA;" />
+      <Label layoutX="177.0" layoutY="419.0" text="Groupe 3:" />
+      <Label layoutX="572.0" layoutY="322.0" text="Type utilisateur pour groupe1:" />
+      <Label layoutX="572.0" layoutY="373.0" text="Type utilisateur pour groupe2:" />
+      <Label layoutX="572.0" layoutY="419.0" text="Type utilisateur pour groupe3:" />
+      <TextArea fx:id="Typeutilisateurgroupe1in" layoutX="747.0" layoutY="310.0" prefHeight="40.0" prefWidth="206.0" style="-fx-background-color: #B1F6CA;" />
+      <TextArea fx:id="Typeutilisateurgroupe3in" layoutX="747.0" layoutY="407.0" prefHeight="40.0" prefWidth="206.0" style="-fx-background-color: #B1F6CA;" />
+      <Label layoutX="572.0" layoutY="70.0" text="Le type d'utilisateur peux être: Super Admin, Admin, Utilisateur, Visiteur. " />
+      <TextArea fx:id="Typeutilisateurgroupe2in" layoutX="747.0" layoutY="361.0" prefHeight="40.0" prefWidth="206.0" style="-fx-background-color: #B1F6CA;" />
+   </children>
+</AnchorPane>
